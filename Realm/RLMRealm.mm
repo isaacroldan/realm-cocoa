@@ -161,6 +161,7 @@ static NSString * const c_defaultRealmFileName = @"default.realm";
 @implementation RLMRealm {
     // Used for read-write realms
     NSHashTable *_notificationHandlers;
+    NSHashTable *_collectionEnumerators;
 
     std::unique_ptr<ClientHistory> _history;
     std::unique_ptr<SharedGroup> _sharedGroup;
@@ -539,6 +540,12 @@ static void CheckReadWrite(RLMRealm *realm, NSString *msg=@"Cannot write to a re
 
             // begin the read transaction if needed
             [self getOrCreateGroup];
+
+            //
+            for (RLMFastEnumerator *enumerator in _collectionEnumerators) {
+                [enumerator detach];
+            }
+            _collectionEnumerators = nil;
 
             LangBindHelper::promote_to_write(*_sharedGroup, *_history);
 
@@ -928,6 +935,18 @@ static void CheckReadWrite(RLMRealm *realm, NSString *msg=@"Cannot write to a re
     }
 
     return [self writeCopyToPath:path key:key error:error];
+}
+
+- (void)registerEnumerator:(RLMFastEnumerator *)enumerator {
+    if (!_collectionEnumerators) {
+        _collectionEnumerators = [NSHashTable hashTableWithOptions:NSPointerFunctionsWeakMemory];
+    }
+    [_collectionEnumerators addObject:enumerator];
+
+}
+
+- (void)unregisterEnumerator:(RLMFastEnumerator *)enumerator {
+    [_collectionEnumerators removeObject:enumerator];
 }
 
 @end
