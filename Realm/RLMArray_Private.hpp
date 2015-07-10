@@ -37,6 +37,8 @@ namespace realm {
 
 @protocol RLMFastEnumerable
 @property (nonatomic, readonly) RLMRealm *realm;
+@property (nonatomic, readonly) RLMObjectSchema *objectSchema;
+@property (nonatomic, readonly) NSUInteger count;
 
 - (NSUInteger)indexInSource:(NSUInteger)index;
 - (realm::TableView)tableView;
@@ -59,6 +61,8 @@ namespace realm {
 // LinkView backed RLMArray subclass
 //
 @interface RLMArrayLinkView : RLMArray <RLMFastEnumerable>
+@property (nonatomic, strong) RLMObjectSchema *objectSchema;
+
 + (instancetype)arrayWithObjectClassName:(NSString *)objectClassName
                                     view:(realm::LinkViewRef)view
                                    realm:(RLMRealm *)realm;

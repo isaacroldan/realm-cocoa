@@ -35,7 +35,6 @@
 //
 @implementation RLMArrayLinkView {
     realm::LinkViewRef _backingLinkView;
-    RLMObjectSchema *_objectSchema;
 }
 
 + (RLMArrayLinkView *)arrayWithObjectClassName:(NSString *)objectClassName
@@ -224,18 +223,12 @@ static void RLMInsertObject(RLMArrayLinkView *ar, RLMObject *object, NSUInteger 
 
 - (id)valueForKey:(NSString *)key {
     RLMLinkViewArrayValidateAttached(self);
-    const size_t size = _backingLinkView->size();
-    return RLMCollectionValueForKey(key, _realm, _objectSchema, size, ^size_t(size_t index) {
-        return _backingLinkView->get(index).get_index();
-    });
+    return RLMCollectionValueForKey(self, key);
 }
 
 - (void)setValue:(id)value forKey:(NSString *)key {
     RLMLinkViewArrayValidateInWriteTransaction(self);
-    const size_t size = _backingLinkView->size();
-    RLMCollectionSetValueForKey(value, key, _realm, _objectSchema, size, ^size_t(size_t index) {
-        return _backingLinkView->get(index).get_index();
-    });
+    RLMCollectionSetValueForKey(self, key, value);
 }
 
 - (void)deleteObjectsFromRealm {
@@ -279,7 +272,7 @@ static void RLMInsertObject(RLMArrayLinkView *ar, RLMObject *object, NSUInteger 
     return RLMConvertNotFound(query.find());
 }
 
-- (size_t)indexInSource:(NSUInteger)index {
+- (NSUInteger)indexInSource:(NSUInteger)index {
     return _backingLinkView->get(index).get_index();
 }
 

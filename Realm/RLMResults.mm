@@ -334,18 +334,12 @@ static RowIndexes::Sorter RLMSorterFromDescriptors(RLMObjectSchema *schema, NSAr
 
 - (id)valueForKey:(NSString *)key {
     RLMResultsValidate(self);
-    const size_t size = _backingView.size();
-    return RLMCollectionValueForKey(key, _realm, _objectSchema, size, ^size_t(size_t index) {
-        return _backingView.get_source_ndx(index);
-    });
+    return RLMCollectionValueForKey(self, key);
 }
 
 - (void)setValue:(id)value forKey:(NSString *)key {
     RLMResultsValidateInWriteTransaction(self);
-    const size_t size = _backingView.size();
-    RLMCollectionSetValueForKey(value, key, _realm, _objectSchema, size, ^size_t(size_t index) {
-        return _backingView.get_source_ndx(index);
-    });
+    RLMCollectionSetValueForKey(self, key, value);
 }
 
 - (RLMResults *)objectsWhere:(NSString *)predicateFormat, ... {
@@ -577,22 +571,6 @@ static NSNumber *averageOfProperty(TableType const& table, RLMRealm *realm, NSSt
 - (NSUInteger)count {
     RLMCheckThread(_realm);
     return _table->size();
-}
-
-- (id)valueForKey:(NSString *)key {
-    RLMResultsValidate(self);
-    const size_t size = _table->size();
-    return RLMCollectionValueForKey(key, _realm, _objectSchema, size, ^size_t(size_t index) {
-        return index;
-    });
-}
-
-- (void)setValue:(id)value forKey:(NSString *)key {
-    RLMResultsValidateInWriteTransaction(self);
-    const size_t size = _table->size();
-    RLMCollectionSetValueForKey(value, key, _realm, _objectSchema, size, ^size_t(size_t index) {
-        return index;
-    });
 }
 
 - (NSUInteger)indexOfObject:(RLMObject *)object {
