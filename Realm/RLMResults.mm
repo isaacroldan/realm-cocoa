@@ -289,7 +289,7 @@ static RowIndexes::Sorter RLMSorterFromDescriptors(RLMObjectSchema *schema, NSAr
 }
 
 - (RLMResults *)objectsWithPredicate:(NSPredicate *)predicate {
-    RLMCheckThread(_realm);
+    [_realm verifyThread];
 
     // copy array and apply new predicate creating a new query and view
     auto query = [self cloneQuery];
@@ -305,7 +305,7 @@ static RowIndexes::Sorter RLMSorterFromDescriptors(RLMObjectSchema *schema, NSAr
 }
 
 - (RLMResults *)sortedResultsUsingDescriptors:(NSArray *)properties {
-    RLMCheckThread(_realm);
+    [_realm verifyThread];
 
     auto query = [self cloneQuery];
     auto sorter = RLMSorterFromDescriptors(_objectSchema, properties);
