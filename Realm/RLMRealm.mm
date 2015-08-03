@@ -95,7 +95,7 @@ static void clearKeyCache() {
     }
 }
 
-static NSData *validatedKey(NSData *key) {
+NSData *RLMRealmValidatedEncryptionKey(NSData *key) {
     if (shouldForciblyDisableEncryption()) {
         return nil;
     }
@@ -116,7 +116,7 @@ static NSData *validatedKey(NSData *key) {
 }
 
 static void setKeyForPath(NSData *key, NSString *path) {
-    key = validatedKey(key);
+    key = RLMRealmValidatedEncryptionKey(key);
     @synchronized (s_keysPerPath) {
         if (key) {
             s_keysPerPath[path] = key;
@@ -202,7 +202,7 @@ static void clearMigrationCache() {
         NSError *error = nil;
         try {
             // NOTE: we do these checks here as is this is the first time encryption keys are used
-            key = validatedKey(key);
+            key = RLMRealmValidatedEncryptionKey(key);
 
             if (readonly) {
                 _readGroup = make_unique<Group>(path.UTF8String, static_cast<const char *>(key.bytes));
@@ -268,9 +268,9 @@ static void clearMigrationCache() {
 }
 
 + (void)setDefaultRealmPath:(NSString *)defaultRealmPath {
-    [RLMConfiguration setDefaultConfiguration:[RLMConfiguration.defaultConfiguration copyWithChanges:^(id<RLMConfigurator> configurator) {
-        configurator.path = defaultRealmPath;
-    }]];
+    RLMConfiguration *configuration = [[RLMConfiguration defaultConfiguration] copy];
+    configuration.path = defaultRealmPath;
+    [RLMConfiguration setDefaultConfiguration:configuration];
 }
 
 + (NSString *)writeableTemporaryPathForFile:(NSString *)fileName
@@ -296,9 +296,8 @@ static void clearMigrationCache() {
 }
 
 + (instancetype)inMemoryRealmWithIdentifier:(NSString *)identifier {
-    RLMConfiguration *configuration = [RLMConfiguration configurationWithBlock:^(id<RLMConfigurator> configurator) {
-        configurator.inMemoryIdentifier = identifier;
-    }];
+    RLMConfiguration *configuration = [[RLMConfiguration alloc] init];
+    configuration.inMemoryIdentifier = identifier;
     return [RLMRealm realmWithConfiguration:configuration error:nil];
 }
 
@@ -322,11 +321,10 @@ static void clearMigrationCache() {
                        schema:(RLMSchema *)customSchema
                         error:(NSError **)outError
 {
-    RLMConfiguration *configuration = [RLMConfiguration configurationWithBlock:^(id<RLMConfigurator> configurator) {
-        configurator.path = path;
-        configurator.encryptionKey = key;
-        configurator.readOnly = readonly;
-    }];
+    RLMConfiguration *configuration = [[RLMConfiguration alloc] init];
+    configuration.path = path;
+    configuration.encryptionKey = key;
+    configuration.readOnly = readonly;
     configuration.dynamic = dynamic;
     configuration.customSchema = customSchema;
     return [RLMRealm realmWithConfiguration:configuration error:outError];
@@ -828,7 +826,7 @@ static void CheckReadWrite(RLMRealm *realm, NSString *msg=@"Cannot write to a re
 }
 
 + (uint64_t)schemaVersionAtPath:(NSString *)realmPath encryptionKey:(NSData *)key error:(NSError **)outError {
-    key = validatedKey(key) ?: keyForPath(realmPath);
+    key = RLMRealmValidatedEncryptionKey(key) ?: keyForPath(realmPath);
     RLMRealm *realm = RLMGetThreadLocalCachedRealmForPath(realmPath);
     if (!realm) {
         NSError *error;
@@ -851,7 +849,7 @@ static void CheckReadWrite(RLMRealm *realm, NSString *msg=@"Cannot write to a re
         @throw RLMException(@"Encryption key must not be nil");
     }
 
-    return [self migrateRealmAtPath:realmPath key:validatedKey(key)];
+    return [self migrateRealmAtPath:realmPath key:RLMRealmValidatedEncryptionKey(key)];
 }
 
 + (NSError *)migrateRealmAtPath:(NSString *)realmPath key:(NSData *)key {
@@ -859,7 +857,7 @@ static void CheckReadWrite(RLMRealm *realm, NSString *msg=@"Cannot write to a re
         @throw RLMException(@"Cannot migrate Realms that are already open.");
     }
 
-    key = validatedKey(key) ?: keyForPath(realmPath);
+    key = RLMRealmValidatedEncryptionKey(key) ?: keyForPath(realmPath);
 
     NSError *error;
     RLMRealm *realm = [[RLMRealm alloc] initWithPath:realmPath key:key readOnly:NO inMemory:NO dynamic:YES error:&error];
@@ -879,7 +877,7 @@ static void CheckReadWrite(RLMRealm *realm, NSString *msg=@"Cannot write to a re
 }
 
 - (BOOL)writeCopyToPath:(NSString *)path key:(NSData *)key error:(NSError **)error {
-    key = validatedKey(key) ?: keyForPath(path);
+    key = RLMRealmValidatedEncryptionKey(key) ?: keyForPath(path);
 
     try {
         self.group->write(path.UTF8String, static_cast<const char *>(key.bytes));
