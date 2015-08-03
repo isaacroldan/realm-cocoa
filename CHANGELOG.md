@@ -8,6 +8,8 @@ x.x.x Release notes (yyyy-MM-dd)
 ### Enhancements
 
 * `Object.className` is now marked as `final`.
+* Persisted properties of `RLMObject`/`Object` subclasses are now Key-Value
+  Observing compliant.
 
 ### Bugfixes
 
