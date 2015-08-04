@@ -308,6 +308,10 @@
 		5D30B74B1B42072600D90C5A /* RLMDefines.h in Headers */ = {isa = PBXBuildFile; fileRef = 5D30B74A1B42039F00D90C5A /* RLMDefines.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5D30B74C1B42072700D90C5A /* RLMDefines.h in Headers */ = {isa = PBXBuildFile; fileRef = 5D30B74A1B42039F00D90C5A /* RLMDefines.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5D30B74D1B42072800D90C5A /* RLMDefines.h in Headers */ = {isa = PBXBuildFile; fileRef = 5D30B74A1B42039F00D90C5A /* RLMDefines.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C07BC7D21B702BD400A08906 /* RLMConfiguration_Private.h in Headers */ = {isa = PBXBuildFile; fileRef = C0D2DD0F1B6BE0DD004E8919 /* RLMConfiguration_Private.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		C07BC7D31B702BD500A08906 /* RLMConfiguration_Private.h in Headers */ = {isa = PBXBuildFile; fileRef = C0D2DD0F1B6BE0DD004E8919 /* RLMConfiguration_Private.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		C07BC7D41B702BD700A08906 /* RLMConfiguration_Private.h in Headers */ = {isa = PBXBuildFile; fileRef = C0D2DD0F1B6BE0DD004E8919 /* RLMConfiguration_Private.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		C07BC7D51B702BD800A08906 /* RLMConfiguration_Private.h in Headers */ = {isa = PBXBuildFile; fileRef = C0D2DD0F1B6BE0DD004E8919 /* RLMConfiguration_Private.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		C0CDC0821B38DABA00C5716D /* UtilTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = 021A88311AAFB5BE00EEAC84 /* UtilTests.mm */; };
 		C0CDC0831B38DABB00C5716D /* UtilTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = 021A88311AAFB5BE00EEAC84 /* UtilTests.mm */; };
 		C0CDC0841B38DABB00C5716D /* UtilTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = 021A88311AAFB5BE00EEAC84 /* UtilTests.mm */; };
@@ -987,6 +991,7 @@
 				144C2F6C1B3D3529005C8F81 /* RLMObjectStore.h in Headers */,
 				144C2F681B3D3529005C8F81 /* RLMListBase.h in Headers */,
 				144C2F721B3D3529005C8F81 /* RLMSchema_Private.h in Headers */,
+				C07BC7D51B702BD800A08906 /* RLMConfiguration_Private.h in Headers */,
 				144C2F6F1B3D3529005C8F81 /* RLMRealm_Private.h in Headers */,
 				144C2F701B3D3529005C8F81 /* RLMRealmUtil.h in Headers */,
 				144C2F6A1B3D3529005C8F81 /* RLMObject_Private.h in Headers */,
@@ -1032,6 +1037,7 @@
 				29E3C7241A71C1C700B62C1D /* RLMObject.h in Headers */,
 				29E3C72B1A71C1C700B62C1D /* RLMObject_Private.h in Headers */,
 				29E3C7211A71C1C700B62C1D /* RLMObjectBase.h in Headers */,
+				C07BC7D41B702BD700A08906 /* RLMConfiguration_Private.h in Headers */,
 				29E3C7251A71C1C700B62C1D /* RLMObjectSchema.h in Headers */,
 				29EDB8EC1A7712E500458D80 /* RLMObjectSchema_Private.h in Headers */,
 				29E3C7261A71C1C700B62C1D /* RLMObjectSchema_Private.hpp in Headers */,
@@ -1077,6 +1083,7 @@
 				E856D1FD1956154C00FB2FCF /* RLMObject.h in Headers */,
 				29EDB8DD1A7705EA00458D80 /* RLMObject_Private.h in Headers */,
 				023B19601A3BA90E0067FB81 /* RLMObjectBase.h in Headers */,
+				C07BC7D31B702BD500A08906 /* RLMConfiguration_Private.h in Headers */,
 				E856D2001956154C00FB2FCF /* RLMObjectSchema.h in Headers */,
 				29EDB8EB1A7712E500458D80 /* RLMObjectSchema_Private.h in Headers */,
 				E856D1FF1956154C00FB2FCF /* RLMObjectSchema_Private.hpp in Headers */,
@@ -1122,6 +1129,7 @@
 				E81A1F961955FC9300FDED82 /* RLMObject.h in Headers */,
 				29EDB8DE1A7705EB00458D80 /* RLMObject_Private.h in Headers */,
 				023B195F1A3BA90E0067FB81 /* RLMObjectBase.h in Headers */,
+				C07BC7D21B702BD400A08906 /* RLMConfiguration_Private.h in Headers */,
 				E81A1F9A1955FC9300FDED82 /* RLMObjectSchema.h in Headers */,
 				29EDB8EA1A7712E500458D80 /* RLMObjectSchema_Private.h in Headers */,
 				E81A1F991955FC9300FDED82 /* RLMObjectSchema_Private.hpp in Headers */,
