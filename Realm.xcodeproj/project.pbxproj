@@ -320,10 +320,10 @@
 		C0D2DD081B6BDEA1004E8919 /* RLMConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = C0D2DD051B6BDEA1004E8919 /* RLMConfiguration.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C0D2DD091B6BDEA1004E8919 /* RLMConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = C0D2DD051B6BDEA1004E8919 /* RLMConfiguration.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C0D2DD0A1B6BDEA1004E8919 /* RLMConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = C0D2DD051B6BDEA1004E8919 /* RLMConfiguration.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		C0D2DD0B1B6BDEA1004E8919 /* RLMConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = C0D2DD061B6BDEA1004E8919 /* RLMConfiguration.m */; };
-		C0D2DD0C1B6BDEA1004E8919 /* RLMConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = C0D2DD061B6BDEA1004E8919 /* RLMConfiguration.m */; };
-		C0D2DD0D1B6BDEA1004E8919 /* RLMConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = C0D2DD061B6BDEA1004E8919 /* RLMConfiguration.m */; };
-		C0D2DD0E1B6BDEA1004E8919 /* RLMConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = C0D2DD061B6BDEA1004E8919 /* RLMConfiguration.m */; };
+		C0D2DD0B1B6BDEA1004E8919 /* RLMConfiguration.mm in Sources */ = {isa = PBXBuildFile; fileRef = C0D2DD061B6BDEA1004E8919 /* RLMConfiguration.mm */; };
+		C0D2DD0C1B6BDEA1004E8919 /* RLMConfiguration.mm in Sources */ = {isa = PBXBuildFile; fileRef = C0D2DD061B6BDEA1004E8919 /* RLMConfiguration.mm */; };
+		C0D2DD0D1B6BDEA1004E8919 /* RLMConfiguration.mm in Sources */ = {isa = PBXBuildFile; fileRef = C0D2DD061B6BDEA1004E8919 /* RLMConfiguration.mm */; };
+		C0D2DD0E1B6BDEA1004E8919 /* RLMConfiguration.mm in Sources */ = {isa = PBXBuildFile; fileRef = C0D2DD061B6BDEA1004E8919 /* RLMConfiguration.mm */; };
 		E81A1F851955FC9300FDED82 /* RLMAccessor.h in Headers */ = {isa = PBXBuildFile; fileRef = E81A1F631955FC9300FDED82 /* RLMAccessor.h */; };
 		E81A1F861955FC9300FDED82 /* RLMAccessor.mm in Sources */ = {isa = PBXBuildFile; fileRef = E81A1F641955FC9300FDED82 /* RLMAccessor.mm */; };
 		E81A1F891955FC9300FDED82 /* RLMArray.h in Headers */ = {isa = PBXBuildFile; fileRef = E81A1F661955FC9300FDED82 /* RLMArray.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -606,7 +606,7 @@
 		5D30B74A1B42039F00D90C5A /* RLMDefines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RLMDefines.h; sourceTree = "<group>"; };
 		C073E1201AE9B705002C0A30 /* RLMObject_Private.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = RLMObject_Private.hpp; sourceTree = "<group>"; };
 		C0D2DD051B6BDEA1004E8919 /* RLMConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RLMConfiguration.h; sourceTree = "<group>"; };
-		C0D2DD061B6BDEA1004E8919 /* RLMConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RLMConfiguration.m; sourceTree = "<group>"; };
+		C0D2DD061B6BDEA1004E8919 /* RLMConfiguration.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = RLMConfiguration.mm; sourceTree = "<group>"; };
 		C0D2DD0F1B6BE0DD004E8919 /* RLMConfiguration_Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RLMConfiguration_Private.h; sourceTree = "<group>"; };
 		C0D6E4101AFBFAF7001F3027 /* RLMAssertions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RLMAssertions.h; sourceTree = "<group>"; };
 		E81A1F621955FC9300FDED82 /* Realm-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Realm-Info.plist"; sourceTree = "<group>"; };
@@ -883,7 +883,7 @@
 				E81A1F691955FC9300FDED82 /* RLMArrayLinkView.mm */,
 				02B8EF5B19E7048D0045A93D /* RLMCollection.h */,
 				C0D2DD051B6BDEA1004E8919 /* RLMConfiguration.h */,
-				C0D2DD061B6BDEA1004E8919 /* RLMConfiguration.m */,
+				C0D2DD061B6BDEA1004E8919 /* RLMConfiguration.mm */,
 				C0D2DD0F1B6BE0DD004E8919 /* RLMConfiguration_Private.h */,
 				E81A1F6B1955FC9300FDED82 /* RLMConstants.h */,
 				E81A1F6C1955FC9300FDED82 /* RLMConstants.m */,
@@ -1600,7 +1600,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C0D2DD0E1B6BDEA1004E8919 /* RLMConfiguration.m in Sources */,
+				C0D2DD0E1B6BDEA1004E8919 /* RLMConfiguration.mm in Sources */,
 				144C2F531B3D34A2005C8F81 /* RLMRealmUtil.mm in Sources */,
 				144C2F461B3D34A2005C8F81 /* RLMAccessor.mm in Sources */,
 				144C2F471B3D34A2005C8F81 /* RLMArray.mm in Sources */,
@@ -1631,7 +1631,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C0D2DD0D1B6BDEA1004E8919 /* RLMConfiguration.m in Sources */,
+				C0D2DD0D1B6BDEA1004E8919 /* RLMConfiguration.mm in Sources */,
 				02D9AFBF1B22488800A1BD87 /* object_schema.cpp in Sources */,
 				02D9AFC51B22488800A1BD87 /* object_store.cpp in Sources */,
 				023B2B2F1B28F0CF0021E54D /* object_store_exceptions.cpp in Sources */,
@@ -1700,7 +1700,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C0D2DD0C1B6BDEA1004E8919 /* RLMConfiguration.m in Sources */,
+				C0D2DD0C1B6BDEA1004E8919 /* RLMConfiguration.mm in Sources */,
 				02D9AFBE1B22488800A1BD87 /* object_schema.cpp in Sources */,
 				02D9AFC41B22488800A1BD87 /* object_store.cpp in Sources */,
 				023B2B2E1B28F0CF0021E54D /* object_store_exceptions.cpp in Sources */,
@@ -1772,7 +1772,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C0D2DD0B1B6BDEA1004E8919 /* RLMConfiguration.m in Sources */,
+				C0D2DD0B1B6BDEA1004E8919 /* RLMConfiguration.mm in Sources */,
 				02D9AFBD1B22488800A1BD87 /* object_schema.cpp in Sources */,
 				023B2B2A1B28E5A40021E54D /* object_store.cpp in Sources */,
 				023B2B2D1B28F0CF0021E54D /* object_store_exceptions.cpp in Sources */,

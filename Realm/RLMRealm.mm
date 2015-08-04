@@ -156,6 +156,18 @@ static void clearMigrationCache() {
     }
 }
 
+void RLMRealmAddPathSettingsToConfiguration(RLMConfiguration *configuration) {
+    if (!configuration.encryptionKey) {
+        configuration.encryptionKey = keyForPath(configuration.path);
+    }
+    if (!configuration.migrationBlock) {
+        configuration.migrationBlock = migrationBlockForPath(configuration.path);
+    }
+    if (configuration.schemaVersion == 0) {
+        configuration.schemaVersion = schemaVersionForPath(configuration.path);
+    }
+}
+
 @implementation RLMRealm {
     // Used for read-write realms
     NSHashTable *_notificationHandlers;
@@ -271,9 +283,8 @@ static void clearMigrationCache() {
 }
 
 + (void)setDefaultRealmPath:(NSString *)defaultRealmPath {
-    RLMConfiguration *configuration = [[RLMConfiguration defaultConfiguration] copy];
-    configuration.path = defaultRealmPath;
-    [RLMConfiguration setDefaultConfiguration:configuration];
+    RLMConfigurationUsePerPath(_cmd);
+    [RLMConfiguration setDefaultPath:defaultRealmPath];
 }
 
 + (NSString *)writeableTemporaryPathForFile:(NSString *)fileName
@@ -284,9 +295,7 @@ static void clearMigrationCache() {
 + (instancetype)defaultRealm
 {
     RLMConfiguration *configuration = [RLMConfiguration defaultConfiguration];
-    configuration.encryptionKey = keyForPath(configuration.path);
-    configuration.migrationBlock = migrationBlockForPath(configuration.path);
-    configuration.schemaVersion = schemaVersionForPath(configuration.path);
+    RLMRealmAddPathSettingsToConfiguration(configuration);
     return [RLMRealm realmWithConfiguration:configuration error:nil];
 }
 
@@ -467,6 +476,7 @@ static id RLMAutorelease(id value) {
 }
 
 + (void)setEncryptionKey:(NSData *)key forRealmsAtPath:(NSString *)path {
+    RLMConfigurationUsePerPath(_cmd);
     @synchronized (s_keysPerPath) {
         if (RLMGetAnyCachedRealmForPath(path)) {
             NSData *existingKey = keyForPath(path);
@@ -490,7 +500,7 @@ void RLMRealmSetEncryptionKeyForPath(NSData *encryptionKey, NSString *path) {
     clearMigrationCache();
     clearKeyCache();
     RLMClearRealmCache();
-    [RLMConfiguration setDefaultConfiguration:nil];
+    [RLMConfiguration resetRealmConfigurationState];
 }
 
 static void CheckReadWrite(RLMRealm *realm, NSString *msg=@"Cannot write to a read-only Realm") {
@@ -833,6 +843,7 @@ static void CheckReadWrite(RLMRealm *realm, NSString *msg=@"Cannot write to a re
 }
 
 + (void)setSchemaVersion:(uint64_t)version forRealmAtPath:(NSString *)realmPath withMigrationBlock:(RLMMigrationBlock)block {
+    RLMConfigurationUsePerPath(_cmd);
     @synchronized(s_migrationBlocks) {
         if (RLMGetAnyCachedRealmForPath(realmPath) && schemaVersionForPath(realmPath) != version) {
             @throw RLMException(@"Cannot set schema version for Realms that are already open.");
